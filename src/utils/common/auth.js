@@ -12,11 +12,13 @@ function checkPassword(plainPassword, encryptePassword) {
 }
 
 function createToken(input) {
+  console.log(ServerConfig.JWT_EXPIRY);
   try {
     return jwt.sign(input, ServerConfig.JWT_SECRET, {
       expiresIn: ServerConfig.JWT_EXPIRY,
     });
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }
@@ -24,7 +26,6 @@ function createToken(input) {
 function verifyToken(token) {
   try {
     return jwt.verify(token, ServerConfig.JWT_SECRET);
-    
   } catch (error) {
     console.log(error);
     throw error;
@@ -34,5 +35,5 @@ function verifyToken(token) {
 module.exports = {
   checkPassword,
   createToken,
-  verifyToken
+  verifyToken,
 };
