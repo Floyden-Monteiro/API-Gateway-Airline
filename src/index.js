@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(limiter);
 
+app.use('/api', apiRoutes);
 app.use(
   '/flightsService',
   createProxyMiddleware({
@@ -37,7 +38,6 @@ app.use(
 // app.put('/api/v1/blogs', (req, res) => {});
 // app.delete('/api/v1/blogs', (req, res) => {});
 
-app.use('/api', apiRoutes);
 
 app.listen(ServerConfig.PORT, () => {
   console.log(`Successfully started the sever on PORT : ${ServerConfig.PORT}`);

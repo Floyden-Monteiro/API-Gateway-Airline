@@ -2,7 +2,6 @@ const { UserService } = require('../services');
 const { StatusCodes } = require('http-status-codes');
 const { successResponse, ErrorResponse } = require('../utils/common');
 
-
 async function signup(req, res) {
   try {
     const user = await UserService.create({
@@ -12,6 +11,7 @@ async function signup(req, res) {
     successResponse.data = user;
     return res.status(StatusCodes.CREATED).json(successResponse);
   } catch (error) {
+    console.log(error);
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
@@ -31,11 +31,7 @@ async function signin(req, res) {
   }
 }
 
-
-
-
-
 module.exports = {
-    signup,
-    signin
+  signup,
+  signin,
 };

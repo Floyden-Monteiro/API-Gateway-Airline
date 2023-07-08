@@ -4,23 +4,19 @@ const AppError = require('../utils/errors/app-error');
 const { UserService } = require('../services');
 
 function validateAuthRequest(req, res, next) {
-  if (!req.body.email) {
-    ErrorResponse.message = 'Some thing went wrong while authenticating uswer';
-
-    ErrorResponse.error = new AppError(
-      ['Email not found in the incoming request'],
-      StatusCodes.BAD_REQUEST
-    );
-    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  if(!req.body.email) {
+      ErrorResponse.message = 'Something went wrong while authenticating user';
+      ErrorResponse.error = new AppError(['Email not found in the incoming request in the correct form'], StatusCodes.BAD_REQUEST);
+      return res
+              .status(StatusCodes.BAD_REQUEST)
+              .json(ErrorResponse);
   }
-  if (!req.body.password) {
-    ErrorResponse.message = 'Some thing went wrong while authenticating uswer';
-
-    ErrorResponse.error = new AppError(
-      ['password not found in the incoming request'],
-      StatusCodes.BAD_REQUEST
-    );
-    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  if(!req.body.password) {
+      ErrorResponse.message = 'Something went wrong while authenticating user';
+      ErrorResponse.error = new AppError(['password not found in the incoming request in the correct form'], StatusCodes.BAD_REQUEST);
+      return res
+              .status(StatusCodes.BAD_REQUEST)
+              .json(ErrorResponse);
   }
   next();
 }
