@@ -11,7 +11,6 @@ async function signup(req, res) {
     successResponse.data = user;
     return res.status(StatusCodes.CREATED).json(successResponse);
   } catch (error) {
-    console.log(error);
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
@@ -30,8 +29,24 @@ async function signin(req, res) {
     return res.status(error.statusCode).json(ErrorResponse);
   }
 }
+async function addRoleToUser(req, res) {
+  try {
+    const user = await UserService.addRoleToUser({
+      role: req.body.role,
+      id: req.body.id,
+    });
+    console.log(user);
+    successResponse.data = user;
+    return res.status(StatusCodes.CREATED).json(successResponse);
+  } catch (error) {
+    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
 
 module.exports = {
   signup,
   signin,
+  addRoleToUser,
 };
